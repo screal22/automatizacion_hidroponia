@@ -1,0 +1,16 @@
+name: automatizacion_hidroponia
+region: nyc
+services:
+  - name: web
+    environment_slug: python
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    run_command: gunicorn "app:create_app()"
+    envs:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        value: "supersecreto"
+      - key: DATABASE_URL
+        scope: RUN_AND_BUILD_TIME
+        value: ${db.DATABASE_URL}   # referencia a tu PostgreSQL gestionado en DO
