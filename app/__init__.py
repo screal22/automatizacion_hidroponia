@@ -10,9 +10,18 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
+    # Importar modelos aquí
+    from .models import User, EstadoBomba
+
     # Registrar blueprints
     from .routes.users import users_bp
     app.register_blueprint(users_bp, url_prefix="/users")
+
+    from .routes.sensors import sensors_bp
+    app.register_blueprint(sensors_bp, url_prefix="/sensors")
+
+    from .routes.pages import pages_bp
+    app.register_blueprint(pages_bp)
 
     @app.route("/")
     def home():

@@ -7,3 +7,9 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User {self.name}>"
+
+class EstadoBomba(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    estado = db.Column(db.String(50), nullable=False)
+    tiempo_llenado = db.Column(db.Float, nullable=True)
+    fecha_creacion = db.Column(db.DateTime, server_default=db.func.now())
