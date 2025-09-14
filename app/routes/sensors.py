@@ -17,7 +17,7 @@ def add_pump_data():
     # Si el estado es "Apagado manual", calcular tiempo de llenado desde el último "Encendido manual"
     if estado == "Apagado manual":
         ultimo_encendido = EstadoBomba.query.order_by(EstadoBomba.fecha_creacion.desc()).first()
-        if ultimo_encendido == 'Prendido manual':
+        if ultimo_encendido:
             tiempo_llenado = (datetime.now() - ultimo_encendido.fecha_creacion).total_seconds()
 
     new_entry = EstadoBomba(
