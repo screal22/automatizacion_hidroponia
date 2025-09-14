@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Estado de Bomba</title>
+    <title>Estado de bomba</title>
     <style>
         table { border-collapse: collapse; width: 50%; margin: 20px auto; }
         th, td { border: 1px solid #333; padding: 8px; text-align: center; }
@@ -16,12 +16,14 @@
             <th>ID</th>
             <th>Estado</th>
             <th>Tiempo de llenado</th>
+            <th>Fecha de creación</th>
         </tr>
         {% for item in datos %}
         <tr>
             <td>{{ item.id }}</td>
             <td>{{ item.estado }}</td>
             <td>{{ item.tiempo_llenado }}</td>
+            <td>{{ item.fecha_creacion }}</td>
         </tr>
         {% endfor %}
     </table>
