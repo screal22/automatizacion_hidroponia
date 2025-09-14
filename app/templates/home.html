@@ -7,10 +7,18 @@
         table { border-collapse: collapse; width: 50%; margin: 20px auto; }
         th, td { border: 1px solid #333; padding: 8px; text-align: center; }
         th { background-color: #f2f2f2; }
+        button { margin: 5px; padding: 10px 20px; cursor: pointer; }
     </style>
 </head>
 <body>
     <h1 style="text-align:center;">Estado de bomba</h1>
+
+    <!-- Botones de control manual -->
+    <div style="text-align:center; margin-bottom: 20px;">
+        <button onclick="cambiarEstado('Encendido manual')">Encender bomba</button>
+        <button onclick="cambiarEstado('Apagado manual')">Apagar bomba</button>
+    </div>
+
     <table>
         <tr>
             <th>ID</th>
@@ -27,5 +35,21 @@
         </tr>
         {% endfor %}
     </table>
+
+    <script>
+        function cambiarEstado(estado) {
+            fetch('/sensors/add_pump_data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ estado: estado, tiempo_llenado: null })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                location.reload();  // recarga la página para mostrar el nuevo estado
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>
