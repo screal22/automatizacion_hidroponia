@@ -1,6 +1,7 @@
 from flask import Flask
 from .extensions import db, migrate
 from .config import Config
+from app.mqtt_listener import start_mqtt_listener
 
 def create_app():
     app = Flask(__name__)
@@ -23,8 +24,12 @@ def create_app():
     from .routes.pages import pages_bp
     app.register_blueprint(pages_bp)
 
-    @app.route("/")
-    def home():
-        return {"message": "Hola desde Flask en DigitalOcean 🚀"}
+    # @app.route("/")
+    # def home():
+    #     return {"message": "Hola desde Flask en DigitalOcean 🚀"}
+    
+    with app.app_context():
+        # Iniciar el listener MQTT
+        start_mqtt_listener()
 
     return app
