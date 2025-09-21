@@ -30,6 +30,6 @@ def create_app():
     
     with app.app_context():
         # Iniciar el listener MQTT
-        start_mqtt_listener()
+        start_mqtt_listener(app)
 
     return app
