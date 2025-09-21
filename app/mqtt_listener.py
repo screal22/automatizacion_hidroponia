@@ -34,10 +34,10 @@ def on_message(client, userdata, msg):
     current_app.logger.info(f"Estado {estado} guardado en la base de datos.")
 
 def start_mqtt_listener():
-    client = mqtt.Client()
+    client = mqtt.Client(transport="websockets")
     client.on_connect = on_connect
     client.on_message = on_message
 
-    client.connect(MQTT_BROKER, MQTT_PORT, 60)
+    client.connect(MQTT_BROKER, 8080, 60)
     client.loop_start()
     return client
