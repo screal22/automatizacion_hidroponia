@@ -14,3 +14,11 @@ services:
       - key: DATABASE_URL
         scope: RUN_AND_BUILD_TIME
         value: ${db.DATABASE_URL}   # referencia a tu PostgreSQL gestionado en DO
+      - key: MQTT_BROKER
+        value: test.mosquitto.org
+      - key: MQTT_PORT
+        value: 1883
+      - key: MQTT_TOPIC
+        value: hidroponia/valvula/estado
+      - key: CLIENT_ID
+        value: esp32_valvula_01
