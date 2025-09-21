@@ -16,9 +16,17 @@ MQTT_BROKER = os.getenv("MQTT_BROKER", "test.mosquitto.org")
 MQTT_PORT = int(os.getenv("MQTT_PORT", 1883))
 MQTT_TOPIC = os.getenv("MQTT_TOPIC", 'hidroponia/valvula/estado')
 print('Configuración MQTT:', MQTT_BROKER, MQTT_PORT, MQTT_TOPIC)
+mqtt_client = None
 
 def start_mqtt_listener(app):
     logging.info(f'Configuración MQTT: {MQTT_BROKER}, {MQTT_PORT}, {MQTT_TOPIC}')
+
+    global mqtt_client
+    if mqtt_client is not None:
+        # Ya existe un cliente, no crear otro
+        return mqtt_client
+    
+    mqtt_client = mqtt.Client()
 
     def on_connect(client, userdata, flags, rc):
         print("Conectado al broker MQTT con código:", rc)
@@ -49,10 +57,9 @@ def start_mqtt_listener(app):
         print(f"Estado {estado} guardado en la base de datos")
         logging.info(f"Estado {estado} guardado en la base de datos")
 
-    client = mqtt.Client()
-    client.on_connect = on_connect
-    client.on_message = on_message
+    mqtt_client.on_connect = on_connect
+    mqtt_client.on_message = on_message
 
-    client.connect(MQTT_BROKER, MQTT_PORT, 60)
-    client.loop_start()
-    return client
+    mqtt_client.connect(MQTT_BROKER, MQTT_PORT, 60)
+    mqtt_client.loop_start()
+    return mqtt_client
