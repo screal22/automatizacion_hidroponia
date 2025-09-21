@@ -29,6 +29,11 @@ def start_mqtt_listener(app):
         estado = msg_decodificado[0]
         tiempo_llenado = msg_decodificado[1]
 
+        if tiempo_llenado == 'None':
+            tiempo_llenado = None
+        else:
+            tiempo_llenado = float(tiempo_llenado)
+
         nuevo_registro = EstadoBomba(
             estado=estado,
             tiempo_llenado=tiempo_llenado
