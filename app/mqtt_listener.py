@@ -9,8 +9,9 @@ import os
 load_dotenv()
 MQTT_BROKER = os.getenv("MQTT_BROKER", "test.mosquitto.org")
 MQTT_PORT = int(os.getenv("MQTT_PORT", 1883))
-MQTT_TOPIC = os.getenv("MQTT_TOPIC")
+MQTT_TOPIC = os.getenv("MQTT_TOPIC", 'hidroponia/valvula/estado')
 print(MQTT_BROKER, MQTT_PORT, MQTT_TOPIC)
+current_app.logger.info(MQTT_BROKER, MQTT_PORT, MQTT_TOPIC)
 
 def on_connect(client, userdata, flags, rc):
     print("Conectado al broker MQTT con código:", rc)
