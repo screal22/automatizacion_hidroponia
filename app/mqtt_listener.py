@@ -7,7 +7,7 @@ import os
 
 # Configuración de HiveMQ (broker público o tu instancia)
 load_dotenv()
-MQTT_BROKER = os.getenv("MQTT_BROKER")
+MQTT_BROKER = os.getenv("MQTT_BROKER", "test.mosquitto.org")
 MQTT_PORT = int(os.getenv("MQTT_PORT", 1883))
 MQTT_TOPIC = os.getenv("MQTT_TOPIC")
 
