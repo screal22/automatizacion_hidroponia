@@ -10,6 +10,7 @@ load_dotenv()
 MQTT_BROKER = os.getenv("MQTT_BROKER", "test.mosquitto.org")
 MQTT_PORT = int(os.getenv("MQTT_PORT", 1883))
 MQTT_TOPIC = os.getenv("MQTT_TOPIC")
+print(MQTT_BROKER, MQTT_PORT, MQTT_TOPIC)
 
 def on_connect(client, userdata, flags, rc):
     print("Conectado al broker MQTT con código:", rc)
@@ -34,10 +35,10 @@ def on_message(client, userdata, msg):
     current_app.logger.info(f"Estado {estado} guardado en la base de datos.")
 
 def start_mqtt_listener():
-    client = mqtt.Client(transport="websockets")
+    client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
 
-    client.connect(MQTT_BROKER, 8080, 60)
+    client.connect(MQTT_BROKER, MQTT_PORT, 60)
     client.loop_start()
     return client
