@@ -20,11 +20,11 @@ print('Configuración MQTT:', MQTT_BROKER, MQTT_PORT, MQTT_TOPIC)
 def start_mqtt_listener(app):
     client = mqtt.Client()
     app.logger.info('Configuración MQTT:', MQTT_BROKER, MQTT_PORT, MQTT_TOPIC)
-    logging.info('Configuración MQTT:', MQTT_BROKER, MQTT_PORT, MQTT_TOPIC)
+    logging.info(f'Configuración MQTT: {MQTT_BROKER}, {MQTT_PORT}, {MQTT_TOPIC}')
 
     def on_connect(client, userdata, flags, rc):
         print("Conectado al broker MQTT con código:", rc)
-        logging.info("Conectado al broker MQTT con código:", rc)
+        logging.info(f"Conectado al broker MQTT con código: {rc}")
         client.subscribe(MQTT_TOPIC)
 
     def on_message(client, userdata, msg):
