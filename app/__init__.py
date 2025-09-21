@@ -23,10 +23,6 @@ def create_app():
 
     from .routes.pages import pages_bp
     app.register_blueprint(pages_bp)
-
-    # @app.route("/")
-    # def home():
-    #     return {"message": "Hola desde Flask en DigitalOcean 🚀"}
     
     with app.app_context():
         # Iniciar el listener MQTT
